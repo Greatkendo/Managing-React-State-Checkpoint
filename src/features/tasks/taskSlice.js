@@ -18,7 +18,7 @@ export const taskSlice = createSlice ({
   updateTaskStatus: (state, action) => {
    const updatedUserTasks = state.userTasks.map((item) => {
     if(item.taskId === action.payload) {
-     item.taskComleted === !item.taskCompleted; // Toggles task completion (mistake: should be `=` instead of `===`)
+     item.taskComleted = !item.taskCompleted; // Toggles task completion 
     }
     return item;
    });
@@ -29,7 +29,7 @@ export const taskSlice = createSlice ({
   // Function to delete a task
   deleteUserTask: (state, action) => {
    const remainingTasks = state.userTasks.filter((item) => {
-    item.taskId !== action.payload; // Removes the task with the matching ID (mistake: should return inside this function)
+    item.taskId !== action.payload; // Removes the task with the matching ID
    });
    state.userTasks = remainingTasks;
    localStorage.setItem("myTask", JSON.stringify(remainingTasks));
@@ -39,7 +39,7 @@ export const taskSlice = createSlice ({
   editUserTask: (state, action) => {
    const { taskId, editedTask } = action.payload;
    state.userTasks = state.userTasks.map((item) =>
-    item.taskId === taskId ? { ...item, editedTask } : item // Updates the task (mistake: should spread `editedTask` correctly)
+    item.taskId === taskId ? { ...item, editedTask } : item // Updates the task 
    );
    localStorage.setItem("myTask", JSON.stringify(state.userTasks));
   },
