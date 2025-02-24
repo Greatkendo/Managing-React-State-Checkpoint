@@ -3,11 +3,17 @@ import { useDispatch, useSelector } from "react-redux";
 import { deleteUserTask, editUserTask, updateTaskStatus } from "../features/tasks/taskSlice";
 
 function ShowTask () {
- const { userTasks } = useSelector((state) => state.tasks); // Retrieves tasks from Redux store
+ const { userTasks = [] } = useSelector((state) => state.tasks || {}); // Retrieves tasks from Redux store
+
+
  const dispatch = useDispatch(); // Allows dispatching actions
 
  const handleEditTask = (task) => {
+
+  
   const editedTask = prompt("Edit task title", task.taskTitle);
+
+  
   if(editedTask && editedTask.trim() !== ""){
    dispatch(editUserTask({taskId: task.taskId, updatedTask: {taskTitle: editedTask}}));
   }

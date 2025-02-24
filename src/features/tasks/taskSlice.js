@@ -18,7 +18,7 @@ export const taskSlice = createSlice ({
   updateTaskStatus: (state, action) => {
    const updatedUserTasks = state.userTasks.map((item) => {
     if(item.taskId === action.payload) {
-     item.taskComleted = !item.taskCompleted; // Toggles task completion 
+     item.taskCompleted = !item.taskCompleted; // Toggles task completion 
     }
     return item;
    });
@@ -37,9 +37,14 @@ export const taskSlice = createSlice ({
 
   // Function to edit a task
   editUserTask: (state, action) => {
-   const { taskId, editedTask } = action.payload;
+   const { taskId, updatedTask } = action.payload;
    state.userTasks = state.userTasks.map((item) =>
-    item.taskId === taskId ? { ...item, editedTask } : item // Updates the task 
+   {
+    if( item.taskId === taskId) {
+     item.taskTitle = updatedTask.taskTitle
+    }
+    return item
+   }
    );
    localStorage.setItem("myTask", JSON.stringify(state.userTasks));
   },
